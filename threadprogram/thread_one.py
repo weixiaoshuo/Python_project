@@ -1,18 +1,35 @@
-# python多线程编程
+# python多线程编程，使用threading标准库
 
-from multiprocessing import Process
+import threading
+from time import sleep, ctime
 
-def run_pro(name):
-    print('Child process %s (%s) Running ' %(name,os.getgid()))
+loops=[4, 2]
 
-if __name__ == "__main__":
-    # print('Parent process %s ' % os.getgid())
-    for i in range(5):
-        p= Process(target  = run_pro(),args = (str(i)))
-        print('Process will start')
-        p.start()
-    p.join()
-    print('Process is end')
 
+def loop(nloop, nsec):
+    print('start loop ' + str(nloop)+' at '+ ctime())
+    sleep(nsec)
+    print('loop ' + str(nloop)+ ' done at '+ctime())
+
+
+def main():
+    print(' starting at : '+ctime())
+    threads = [];
+    nloops = range(len(loops))
+
+    for i in nloops:
+        t = threading.Thread(target=loop,args=(i,loops[i]))   # 创建一个线程，两个参数，函数和元组
+        threads.append(t)
+
+    for i in nloops:
+        threads[i].start()                                    # 开始一个线程，start方法
+
+    for i in nloops:
+        threads[i].join()
+
+    print(' all done at: '+ctime())
+
+
+main();  #使用多线程编程的一种方式
 
 

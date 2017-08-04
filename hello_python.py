@@ -11,6 +11,8 @@ from tkinter import *
 # sc(pro);
 # func_two.show_name_age(89);
 
+from bs4 import BeautifulSoup
+
 top = tkinter.Tk()
 label = tkinter.Label(top, text='hello world', commamd=top.quit())
 label.pack
